@@ -1,0 +1,10 @@
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\bin\Debug\Sha256.exe.config
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\bin\Debug\Sha256.exe
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\bin\Debug\Sha256.pdb
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\obj\Debug\Sha256.Form1.resources
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\obj\Debug\Sha256.Properties.Resources.resources
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\obj\Debug\Sha256.csproj.GenerateResource.Cache
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\obj\Debug\Sha256.csproj.CoreCompileInputs.cache
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\obj\Debug\Sha256.exe
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\obj\Debug\Sha256.pdb
+C:\Users\jureLaptop\source\repos\Sha256\Sha256\obj\Debug\Sha256.csprojResolveAssemblyReference.cache
