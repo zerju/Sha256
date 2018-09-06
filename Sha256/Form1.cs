@@ -47,18 +47,15 @@ namespace Sha256
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                //try
-                //{
-
-                    if ((myStream = openFileDialog1.OpenFile()) != null)
-                    {
-                        Stopwatch stopWatch = new Stopwatch();
-                        stopWatch.Start();
-                        List<byte> hash = Sha256.Hash(File.OpenRead(openFileDialog1.FileName));
-                        double length = new System.IO.FileInfo(openFileDialog1.FileName).Length;
-                        outputHash.Text = ArrayToString(hash);
-                        filePath.Text = openFileDialog1.FileName;
-                        stopWatch.Stop();
+                if ((myStream = openFileDialog1.OpenFile()) != null)
+                {
+                    Stopwatch stopWatch = new Stopwatch();
+                    stopWatch.Start();
+                    List<byte> hash = Sha256.Hash(File.OpenRead(openFileDialog1.FileName));
+                    double length = new System.IO.FileInfo(openFileDialog1.FileName).Length;
+                    outputHash.Text = ArrayToString(hash);
+                    filePath.Text = openFileDialog1.FileName;
+                    stopWatch.Stop();
                     // Console.WriteLine(length+"", stopWatch.ElapsedMilliseconds+"");
                     double elapsedSec = stopWatch.ElapsedMilliseconds / 1000;
                     double speed = Math.Round(length / 1000 / elapsedSec, 8);
@@ -67,15 +64,8 @@ namespace Sha256
                         elapsedSec = 1;
                         speed = length / 1000;
                     }
-                        hashSpeed.Text = "Hash Speed: " + speed +" KB/s";
-                    
-
+                    hashSpeed.Text = "Hash Speed: " + speed +" KB/s";
                 }
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                //}
             }
 
         }

@@ -44,7 +44,6 @@ namespace Sha256
             do
             {
                 bytes_read = (uint)stream.Read(buf, 0, buf.Length);
-                // Console.WriteLine(bytes_read);
                 if (bytes_read == 0) { 
                     break;
                 }
@@ -58,7 +57,6 @@ namespace Sha256
 
         public void ProcessBytes(byte[] data, uint offset, uint len)
         {
-            // Console.WriteLine(bits_processed);
             bits_processed += len * 8;
 
             while (len > 0)
@@ -108,7 +106,7 @@ namespace Sha256
                 W[t] = SmallSigma1(W[t - 2]) + W[t - 7] + SmallSigma0(W[t - 15]) + W[t - 16];
             }
             
-            //working variables (8)
+            //delovne spremenljivke (8)
             uint a = initalHashValue[0];
             uint b = initalHashValue[1];
             uint c = initalHashValue[2];
