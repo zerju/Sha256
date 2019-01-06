@@ -88,5 +88,10 @@ namespace Sha256
             
             File.WriteAllText(path, outputHash.Text);
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

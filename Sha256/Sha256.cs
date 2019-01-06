@@ -10,7 +10,7 @@ namespace Sha256
     class Sha256
     {       
         // ostanki kubičnega korena prvih 64 praštevil
-         static readonly uint[] constantsK = new uint[64] {
+        static uint[] constantsK = new uint[64] {
             0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5, 0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5,
             0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3, 0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174,
             0xE49B69C1, 0xEFBE4786, 0x0FC19DC6, 0x240CA1CC, 0x2DE92C6F, 0x4A7484AA, 0x5CB0A9DC, 0x76F988DA,
@@ -23,17 +23,17 @@ namespace Sha256
 
         //inital hash value
         // prvih 32 bitov od delov ostanka od korena od prvih osem praštevil (hash value)
-         uint[] initalHashValue = new uint[8] {
+        uint[] initalHashValue = new uint[8] {
             0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19
         };
-
-         byte[] pending_block = new byte[64];
-         uint pending_block_off = 0;
-         uint[] buffer = new uint[16];
+           
+        byte[] pending_block = new byte[64];
+        uint pending_block_offset = 0;
+        uint[] buffer = new uint[16];
 
         public static uint bits_processed = 0;
 
-         bool closed = false;
+        bool closed = false;
 
         public static List<byte> Hash(Stream stream)
         {
@@ -65,8 +65,8 @@ namespace Sha256
 
                 if (len < 64)
                 {
-                    if (pending_block_off + len > 64) { 
-                        amount_to_copy = 64 - pending_block_off;
+                    if (pending_block_offset + len > 64) { 
+                        amount_to_copy = 64 - pending_block_offset;
                     }
                     else { 
                         amount_to_copy = len;
@@ -74,27 +74,27 @@ namespace Sha256
                 }
                 else
                 {
-                    amount_to_copy = 64 - pending_block_off;
+                    amount_to_copy = 64 - pending_block_offset;
                 }
 
-                Array.Copy(data, offset, pending_block, pending_block_off, amount_to_copy);
+                Array.Copy(data, offset, pending_block, pending_block_offset, amount_to_copy);
                 len -= amount_to_copy;
                 offset += amount_to_copy;
-                pending_block_off += amount_to_copy;
+                pending_block_offset += amount_to_copy;
 
-                if (pending_block_off == 64)
+                if (pending_block_offset == 64)
                 {
 
                     toUintArray(pending_block, buffer);
                     processBlock(buffer);
-                    pending_block_off = 0;
+                    pending_block_offset = 0;
                 }
             }
         }
 
          void processBlock(uint[] M)
         {
-            
+            // 1. pripravi message schedule
             uint[] W = new uint[64];
             for (int t = 0; t < 16; ++t)
             {
@@ -106,7 +106,7 @@ namespace Sha256
                 W[t] = SmallSigma1(W[t - 2]) + W[t - 7] + SmallSigma0(W[t - 15]) + W[t - 16];
             }
             
-            //delovne spremenljivke (8)
+            // 2. inicializacija delovne spremenljivke (8)
             uint a = initalHashValue[0];
             uint b = initalHashValue[1];
             uint c = initalHashValue[2];
@@ -116,6 +116,7 @@ namespace Sha256
             uint g = initalHashValue[6];
             uint h = initalHashValue[7];
             
+            // 3. izračunaj hash
             for (int t = 0; t < 64; ++t)
             {
                 uint T1 = h + BigSigma1(e) + Ch(e, f, g) + constantsK[t] + W[t];
@@ -129,7 +130,7 @@ namespace Sha256
                 b = a;
                 a = T1 + T2;
             }
-            
+            // 4. Izračunaj vmesne hashe
             initalHashValue[0] = a + initalHashValue[0];
             initalHashValue[1] = b + initalHashValue[1];
             initalHashValue[2] = c + initalHashValue[2];
@@ -152,10 +153,10 @@ namespace Sha256
             if (!closed)
             {
                 uint size_temp = bits_processed;
-
+                // new byte 128
                 ProcessBytes(new byte[1] { 0x80 }, 0, 1);
 
-                uint available_space = 64 - pending_block_off;
+                uint available_space = 64 - pending_block_offset;
 
                 if (available_space < 8) { 
                     available_space += 64;
@@ -170,7 +171,7 @@ namespace Sha256
                     padding[padding.Length - i] = (byte)size_temp;
                     size_temp >>= 8;
                 }
-
+                // 0u insigned intiger
                 ProcessBytes(padding, 0u, (uint)padding.Length);
 
                 closed = true;
@@ -210,7 +211,7 @@ namespace Sha256
 
          static uint RotateRight(uint x, byte n)
         {
-            //32 - n because of sha256 which uses 32 bit words
+            //32 - n zato ker uporablja sha256 32bitne besede
             return (x >> n) | (x << (32 - n));
         }
 

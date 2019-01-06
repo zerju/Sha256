@@ -18,3 +18,13 @@ D:\downloads\Sha256\Sha256\obj\Debug\Sha256.csproj.GenerateResource.Cache
 D:\downloads\Sha256\Sha256\obj\Debug\Sha256.csproj.CoreCompileInputs.cache
 D:\downloads\Sha256\Sha256\obj\Debug\Sha256.exe
 D:\downloads\Sha256\Sha256\obj\Debug\Sha256.pdb
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\bin\Debug\Sha256.exe.config
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\bin\Debug\Sha256.exe
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\bin\Debug\Sha256.pdb
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\obj\Debug\Sha256.csprojResolveAssemblyReference.cache
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\obj\Debug\Sha256.Form1.resources
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\obj\Debug\Sha256.Properties.Resources.resources
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\obj\Debug\Sha256.csproj.GenerateResource.Cache
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\obj\Debug\Sha256.csproj.CoreCompileInputs.cache
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\obj\Debug\Sha256.exe
+F:\Projects\Faks\PodatkovnaZascita\Sha256\Sha256\obj\Debug\Sha256.pdb
