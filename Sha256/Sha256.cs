@@ -34,7 +34,7 @@ namespace Sha256
         public static uint bits_processed = 0;
 
         bool closed = false;
-
+        // main function
         public static List<byte> Hash(Stream stream)
         {
             Sha256 sha256 = new Sha256();
@@ -54,7 +54,7 @@ namespace Sha256
 
             return sha256.GetHash();
         }
-
+        // procesira block po block (64 bytes)
         public void ProcessBytes(byte[] data, uint offset, uint len)
         {
             bits_processed += len * 8;
@@ -91,7 +91,7 @@ namespace Sha256
                 }
             }
         }
-
+        // procesira posamezni block, hashiranje
          void processBlock(uint[] M)
         {
             // 1. pripravi message schedule
@@ -116,7 +116,7 @@ namespace Sha256
             uint g = initalHashValue[6];
             uint h = initalHashValue[7];
             
-            // 3. izračunaj hash
+            // 3. izračunaj hashe
             for (int t = 0; t < 64; ++t)
             {
                 uint T1 = h + BigSigma1(e) + Ch(e, f, g) + constantsK[t] + W[t];
@@ -130,7 +130,7 @@ namespace Sha256
                 b = a;
                 a = T1 + T2;
             }
-            // 4. Izračunaj vmesne hashe
+            // 4. Dodaj hashe trenutnim hashem
             initalHashValue[0] = a + initalHashValue[0];
             initalHashValue[1] = b + initalHashValue[1];
             initalHashValue[2] = c + initalHashValue[2];
@@ -142,18 +142,18 @@ namespace Sha256
         }
 
         
-
+        // vrne byte array hasha
         public List<byte> GetHash()
         {
             return toByteArray(GetHashUInt32());
         }
-
+        // padding
         public List<uint> GetHashUInt32()
         {
             if (!closed)
             {
                 uint size_temp = bits_processed;
-                // new byte 128
+                
                 ProcessBytes(new byte[1] { 0x80 }, 0, 1);
 
                 uint available_space = 64 - pending_block_offset;
@@ -179,7 +179,7 @@ namespace Sha256
 
             return initalHashValue.ToList();
         }
-
+        // byte v uint
          static void toUintArray(byte[] src, uint[] dest)
         {
             for (uint i = 0, j = 0; i < dest.Length; ++i, j += 4)
@@ -187,7 +187,7 @@ namespace Sha256
                 dest[i] = ((uint)src[j + 0] << 24) | ((uint)src[j + 1] << 16) | ((uint)src[j + 2] << 8) | ((uint)src[j + 3]);
             }
         }
-
+        // uint v byte array
          static List<byte> toByteArray(List<uint> src)
         {
             byte[] dest = new byte[src.Count * 4];
@@ -195,9 +195,13 @@ namespace Sha256
 
             for (int i = 0; i < src.Count; i++)
             {
+                // 24 - 31
                 dest[pos++] = (byte)(src[i] >> 24);
+                // 16 - 23
                 dest[pos++] = (byte)(src[i] >> 16);
+                // 8 - 15
                 dest[pos++] = (byte)(src[i] >> 8);
+                // 0 - 7
                 dest[pos++] = (byte)(src[i]);
             }
 
@@ -214,12 +218,12 @@ namespace Sha256
             //32 - n zato ker uporablja sha256 32bitne besede
             return (x >> n) | (x << (32 - n));
         }
-
+        // choice function
          static uint Ch(uint i, uint j, uint k)
         {
             return (i & j) ^ ((~i) & k);
         }
-
+        // majority function
          static uint Maj(uint i, uint j, uint k)
         {
             return (i & j) ^ (i & k) ^ (j & k);
